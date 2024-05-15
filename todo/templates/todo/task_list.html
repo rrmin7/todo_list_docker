@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-do List</title>
+    <style>
+        .task-header {
+            font-size: 22px; 
+	}
+        .important-task {
+            text-decoration: underline red; 
+        }
+    </style>
+</head>
+<body>
+    <h1>To-do List</h1>
+    {% if tasks %}
+        <ul>
+            {% for task in tasks %}
+                <li {% if task.is_important %}class="important-task"{% endif %}>
+                    <div class="task-info">
+                        <div class="task-header">
+                            <a href="{% url 'todo:task_detail' task.pk %}" class="task-link">{{ task.task_text }}</a>
+                            <span class="deadline">Deadline: {{ task.due_date }}</span>
+                        </div>
+                        <div class="task-summary">
+                            {{ task.summary }}
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No tasks available.</p>
+    {% endif %}
+    <form action="{% url 'todo:task_create' %}">
+        <button type="submit">Create a new task</button>
+    </form>
+</body>
+</html>
+

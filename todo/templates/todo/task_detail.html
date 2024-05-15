@@ -1,0 +1,10 @@
+<h1>{{ task.task_text }}</h1>
+<p>Due Date: {{ task.due_date }}</p>
+<form action="{% url 'todo:complete_task' task.pk %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Complete Task</button>
+</form>
+<form action="{% url 'todo:task_update' task.pk %}" method="get">
+    <button type="submit" class="edit-task-btn">Edit Task</button>
+</form>
+
